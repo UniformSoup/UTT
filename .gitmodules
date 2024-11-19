@@ -1,0 +1,6 @@
+[submodule ".vscode"]
+	path = .vscode
+	url = https://github.com/UniformSoup/.vscode
+[submodule "Adore"]
+	path = Adore
+	url = https://github.com/UniformSoup/Adore
