@@ -13,16 +13,23 @@ check_ipo_supported(RESULT LTO_SUPPORT OUTPUT LTO_ERROR)
 set(UTT_LTO_ENABLED FALSE)
 
 if(LTO_SUPPORT)
-    if (CMAKE_BUILD_TYPE STREQUAL "Release")
+    if (CMAKE_BUILD_TYPE STREQUAL "RELEASE")
         message(STATUS "LTO is supported and will be enabled by default.")
-        set(UTT_LTO_ENABLED TRUE CACHE BOOL)
+        set(UTT_LTO_ENABLED TRUE)
     endif()
 else()
     message(WARNING "LTO is not supported: ${LTO_ERROR}")
 endif()
 
+set(CMAKE_CXX_STANDARD 17)
+
 # Add dependencies
-set(ADORE_BUILD_STATIC OFF)
+if (CMAKE_BUILD_TYPE STREQUAL "RELEASE")
+    set(ADORE_BUILD_SHARED OFF)
+else()
+    set(ADORE_BUILD_SHARED ON)
+endif()
+
 add_subdirectory(Adore)
 
 # Add source code
