@@ -1,0 +1,23 @@
+[ERROR] 
+This is an error!!!
+
+[Adore] [ERROR] [28/11/2024 17:21:10] 
+This is an exception
+
+[Adore] [INFO] 
+Instance Extensions:
+VK_KHR_surface,
+VK_EXT_metal_surface,
+VK_KHR_portability_enumeration,
+VK_KHR_get_physical_device_properties2.
+
+[Adore] [INFO] 
+Validation Layers:
+
+
+[Adore] [INFO] 
+Context Created (Vulkan).
+
+[Adore] [INFO] 
+Window created (Vulkan).
+

@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.12 FATAL_ERROR)
+set(CMAKE_COLOR_MAKEFILE ON)
 
 project(UTT
     VERSION 1.0
@@ -44,3 +45,7 @@ set_target_properties(UTT PROPERTIES
                         OUTPUT_NAME ${PROJECT_NAME}
                         INTERPROCEDURAL_OPTIMIZATION ${UTT_LTO_ENABLED}
 )
+
+add_subdirectory(Shaders)
+
+# Install assets dir with install(... Assets ... bin)
