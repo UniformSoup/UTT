@@ -14,7 +14,7 @@ int main()
         auto ctx = Adore::Context::create(Adore::API::Vulkan, "UTT");
         auto window = Adore::Window::create(ctx, "UTT Window");
         auto renderer = Adore::Renderer::create(window);
-        auto shader = Adore::Shader::create(renderer, 
+        auto shader = Adore::Shader::create(window, 
         {
             {Adore::Shader::Type::VERTEX, "Shaders/triangle.vert.spv"},
             {Adore::Shader::Type::FRAGMENT, "Shaders/triangle.frag.spv"}
@@ -23,7 +23,9 @@ int main()
         while (window->is_open())
         {
             window->poll();
-            renderer->render(shader);
+            renderer->begin(shader);
+            renderer->draw();
+            renderer->end();
         }
     }
     catch (std::exception const& e)
