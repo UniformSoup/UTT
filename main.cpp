@@ -20,18 +20,21 @@ int main()
 
     std::vector<Vertex> vertices =
     {
-        {{0.0f, -0.5f}, {1.0f, 0.0f, 0.0f}},
-        {{0.5f, 0.5f}, {0.0f, 1.0f, 0.0f}},
-        {{-0.5f, 0.5f}, {0.0f, 0.0f, 1.0f}}
+        {{-0.5f, -0.5f}, {1.0f, 0.0f, 0.0f}},
+        {{0.5f, -0.5f}, {0.0f, 1.0f, 0.0f}},
+        {{0.5f, 0.5f}, {0.0f, 0.0f, 1.0f}},
+        {{-0.5f, 0.5f}, {1.0f, 0.0f, 1.0f}}
     };
+
+    std::vector<uint16_t> indices = {0, 1, 2, 2, 3, 0};
 
     try
     {
         auto ctx = Adore::Context::create(Adore::API::Vulkan, "UTT");
         auto window = Adore::Window::create(ctx, "UTT Window");
         auto renderer = Adore::Renderer::create(window);
-        auto buffer = Adore::Buffer::create(renderer, Adore::Buffer::Usage::Vertex, 
-                                            (void*) vertices.data(), sizeof(Vertex) * vertices.size());
+        auto buffer = Adore::VertexBuffer::create(renderer, (void*) vertices.data(), sizeof(Vertex) * vertices.size());
+        auto indexbuffer = Adore::IndexBuffer::create(renderer, (void*) indices.data(), sizeof(uint16_t) * indices.size());
         auto shader = Adore::Shader::create(window, 
             {
                 {Adore::Shader::Type::VERTEX, "Shaders/triangle.vert.spv"},
@@ -51,19 +54,19 @@ int main()
         while (window->is_open())
         {
             window->poll();
-            if (std::chrono::steady_clock::now() - t1 > std::chrono::milliseconds(300))
+            if (std::chrono::steady_clock::now() - t1 > std::chrono::milliseconds(50))
             {
                 for (auto& v : vertices)
                     v.color = glm::vec3(v.color.z, v.color.x, v.color.y);
 
-                buffer = Adore::Buffer::create(renderer, Adore::Buffer::Usage::Vertex, 
-                            (void*) vertices.data(), sizeof(Vertex) * vertices.size());
+                buffer = Adore::VertexBuffer::create(renderer, (void*) vertices.data(), sizeof(Vertex) * vertices.size());
                 t1 = std::chrono::steady_clock::now();
             }
 
             renderer->begin(shader);
                 renderer->bind(buffer, 0);
-                renderer->draw(3);
+                renderer->bind(indexbuffer);
+                renderer->drawIndexed(6);
             renderer->end();
         }
     }
