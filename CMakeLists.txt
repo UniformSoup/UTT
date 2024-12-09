@@ -39,7 +39,7 @@ set(SOURCES
 )
 
 add_executable(UTT ${SOURCES})
-target_link_libraries(UTT PUBLIC Adore)
+target_link_libraries(UTT PUBLIC Adore glm)
 target_include_directories(UTT PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 set_target_properties(UTT PROPERTIES
                         OUTPUT_NAME ${PROJECT_NAME}
